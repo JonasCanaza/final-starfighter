@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  visual: {fileID: 5385691723178829950}
 --- !u!1 &5382775959515391043
 GameObject:
   m_ObjectHideFlags: 0
