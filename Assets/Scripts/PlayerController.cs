@@ -8,10 +8,16 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private SpriteRenderer visual;
-
     private Camera mainCamera;
     private float leftScreenLimit;
     private float rightScreenLimit;
+
+    [Header("Shooting Settings")]
+    [SerializeField] private float fireCooldown = 0.1f;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform bulletContainer;
+    private float lastFireTime;
 
     private void Start()
     {
@@ -33,7 +39,14 @@ public class PlayerController : MonoBehaviour
 
     private void ReadInput()
     {
+        // Movement
         moveInput = Input.GetAxisRaw("Horizontal");
+
+        // Shoot
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && CanFire())
+        {
+            Shoot();
+        }
     }
 
     private void Movement()
@@ -42,5 +55,16 @@ public class PlayerController : MonoBehaviour
         newPosition.x += moveInput * speed * Time.deltaTime;
         newPosition.x = Mathf.Clamp(newPosition.x, leftScreenLimit, rightScreenLimit);
         transform.position = newPosition;
+    }
+
+    private void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, Quaternion.identity, bulletContainer);
+        lastFireTime = Time.time;
+    }
+
+    private bool CanFire()
+    {
+        return Time.time >= lastFireTime + fireCooldown;
     }
 }
