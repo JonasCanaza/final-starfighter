@@ -1,5 +1,8 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CapsuleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Setting")]
@@ -35,6 +38,14 @@ public class PlayerController : MonoBehaviour
     {
         ReadInput();
         Movement();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
+        {
+            Debug.Log("Player collision with asteroid!");
+        }
     }
 
     private void ReadInput()
