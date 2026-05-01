@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         ReadInput();
         Movement();
     }
@@ -44,16 +44,16 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
         {
-            Debug.Log("Player collision with asteroid!");
+            Destroy(gameObject);
         }
     }
 
     private void ReadInput()
     {
-        // Movement
+        // MOVEMENT
         moveInput = Input.GetAxisRaw("Horizontal");
 
-        // Shoot
+        // SHOOT
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && CanFire())
         {
             Shoot();
