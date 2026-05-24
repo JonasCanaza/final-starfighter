@@ -20,8 +20,6 @@ public class PlayerController : Entity
     private float lastFireTime;
 
     private Camera mainCamera;
-    private float leftScreenLimit;
-    private float rightScreenLimit;
 
     protected override void Awake()
     {
@@ -30,15 +28,6 @@ public class PlayerController : Entity
         mainCamera = Camera.main;
 
         InitBullets();
-    }
-
-    private void Start()
-    {
-        float screenLeft = mainCamera.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x;
-        float screenRight = mainCamera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x;
-
-        leftScreenLimit = screenLeft + HalfWidth;
-        rightScreenLimit = screenRight - HalfWidth;
     }
 
     private void Update()
@@ -83,8 +72,28 @@ public class PlayerController : Entity
     {
         Vector3 newPosition = transform.position;
         newPosition.x += moveInput * speed * Time.deltaTime;
-        newPosition.x = Mathf.Clamp(newPosition.x, leftScreenLimit, rightScreenLimit);
+
+        float leftLimit = GetLeftScreenLimit();
+        float rightLimit = GetRightScreenLimit();
+
+        newPosition.x = Mathf.Clamp(newPosition.x, leftLimit, rightLimit);
         transform.position = newPosition;
+    }
+
+    private float GetLeftScreenLimit()
+    {
+        float screenHeight = mainCamera.orthographicSize * 2.0f;
+        float screenWidth = screenHeight * mainCamera.aspect;
+
+        return mainCamera.transform.position.x - (screenWidth / 2.0f) + HalfWidth;
+    }
+
+    private float GetRightScreenLimit()
+    {
+        float screenHeight = mainCamera.orthographicSize * 2.0f;
+        float screenWidth = screenHeight * mainCamera.aspect;
+
+        return mainCamera.transform.position.x + (screenWidth / 2.0f) - HalfWidth;
     }
 
     private bool CanFire()
