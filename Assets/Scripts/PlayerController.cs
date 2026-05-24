@@ -17,16 +17,23 @@ public class PlayerController : MonoBehaviour
     private float rightScreenLimit;
 
     [Header("Shooting Settings")]
+    [SerializeField] private int bulletPoolSize = 10;
     [SerializeField] private float fireCooldown = 0.1f;
-    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private BulletController bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform bulletContainer;
+    private BulletController[] bulletPool;
     private float lastFireTime;
 
-    private void Start()
+    private void Awake()
     {
         mainCamera = Camera.main;
 
+        InitBullets();
+    }
+
+    private void Start()
+    {
         float screenLeft = mainCamera.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x;
         float screenRight = mainCamera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x;
         float halfPlayerWidth = visual.bounds.extents.x;
@@ -46,6 +53,18 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
         {
             SceneManager.LoadScene("Gameplay");
+        }
+    }
+
+    private void InitBullets()
+    {
+        bulletPool = new BulletController[bulletPoolSize];
+
+        for (int i = 0; i < bulletPoolSize; i++)
+        {
+            BulletController newBullet = Instantiate(bulletPrefab, bulletContainer);
+            newBullet.Deactivate();
+            bulletPool[i] = newBullet;
         }
     }
 
@@ -69,14 +88,36 @@ public class PlayerController : MonoBehaviour
         transform.position = newPosition;
     }
 
-    private void Shoot()
-    {
-        Instantiate(bulletPrefab, firePoint.position, Quaternion.identity, bulletContainer);
-        lastFireTime = Time.time;
-    }
-
     private bool CanFire()
     {
         return Time.time >= lastFireTime + fireCooldown;
+    }
+
+    private void Shoot()
+    {
+        BulletController newBullet = GetAvailableBullet();
+
+        if (!newBullet)
+        {
+            return;
+        }
+
+        newBullet.transform.position = firePoint.position;
+        newBullet.Activate();
+
+        lastFireTime = Time.time;
+    }
+
+    private BulletController GetAvailableBullet()
+    {
+        for (int i = 0; i < bulletPoolSize; i++)
+        {
+            if (!bulletPool[i].gameObject.activeInHierarchy)
+            {
+                return bulletPool[i];
+            }
+        }
+
+        return null;
     }
 }
