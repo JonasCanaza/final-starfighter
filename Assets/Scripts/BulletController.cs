@@ -3,18 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 
-public class BulletController : MonoBehaviour
+public class BulletController : Entity
 {
     [Header("Movement Setting")]
     [SerializeField] private float speed = 15.0f;
 
     private Camera mainCamera;
-    private SpriteRenderer visual;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         mainCamera = Camera.main;
-        visual = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Update()
@@ -35,20 +35,10 @@ public class BulletController : MonoBehaviour
         }
     }
 
-    public void Activate()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
-    }
-
     private bool IsBulletOffScreen()
     {
-        float bottomScreenEdge = mainCamera.transform.position.y + mainCamera.orthographicSize + visual.bounds.extents.y;
+        float topScreenEdge = mainCamera.transform.position.y + mainCamera.orthographicSize + HalfHeight;
 
-        return transform.position.y > bottomScreenEdge;
+        return transform.position.y > topScreenEdge;
     }
 }

@@ -4,17 +4,11 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(CapsuleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Entity
 {
     [Header("Movement Setting")]
     [SerializeField] private float speed = 15.0f;
     private float moveInput;
-
-    [Header("References")]
-    [SerializeField] private SpriteRenderer visual;
-    private Camera mainCamera;
-    private float leftScreenLimit;
-    private float rightScreenLimit;
 
     [Header("Shooting Settings")]
     [SerializeField] private int bulletPoolSize = 10;
@@ -25,8 +19,14 @@ public class PlayerController : MonoBehaviour
     private BulletController[] bulletPool;
     private float lastFireTime;
 
-    private void Awake()
+    private Camera mainCamera;
+    private float leftScreenLimit;
+    private float rightScreenLimit;
+
+    protected override void Awake()
     {
+        base.Awake();
+
         mainCamera = Camera.main;
 
         InitBullets();
@@ -36,10 +36,9 @@ public class PlayerController : MonoBehaviour
     {
         float screenLeft = mainCamera.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x;
         float screenRight = mainCamera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x;
-        float halfPlayerWidth = visual.bounds.extents.x;
 
-        leftScreenLimit = screenLeft + halfPlayerWidth;
-        rightScreenLimit = screenRight - halfPlayerWidth;
+        leftScreenLimit = screenLeft + HalfWidth;
+        rightScreenLimit = screenRight - HalfWidth;
     }
 
     private void Update()

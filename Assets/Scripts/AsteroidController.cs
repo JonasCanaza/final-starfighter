@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(CircleCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 
-public class AsteroidController : MonoBehaviour
+public class AsteroidController : Entity
 {
     [Header("Movement Settings")]
     [SerializeField] private float minSpeed = 3.0f;
@@ -11,12 +11,12 @@ public class AsteroidController : MonoBehaviour
     private float currentSpeed;
 
     private Camera mainCamera;
-    private SpriteRenderer visual;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         mainCamera = Camera.main;
-        visual = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Update()
@@ -37,20 +37,16 @@ public class AsteroidController : MonoBehaviour
         }
     }
 
-    public void Activate()
+    public override void Activate()
     {
         currentSpeed = Random.Range(minSpeed, maxSpeed);
-        gameObject.SetActive(true);
-    }
 
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
+        base.Activate();
     }
 
     private bool IsAsteroidOffScreen()
     {
-        float bottomScreenEdge = mainCamera.transform.position.y - mainCamera.orthographicSize - visual.bounds.extents.y;
+        float bottomScreenEdge = mainCamera.transform.position.y - mainCamera.orthographicSize - HalfHeight;
 
         return transform.position.y < bottomScreenEdge;
     }

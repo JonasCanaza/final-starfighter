@@ -11,18 +11,12 @@ public class AsteroidSpawner : MonoBehaviour
     private float timer = 0.0f;
 
     private Camera mainCamera;
-    private SpriteRenderer visual;
-    private float asteroidHalfWidth;
-    private float asteroidHalfHeight;
 
     private void Awake()
     {
         InitAsteroids();
 
         mainCamera = Camera.main;
-        visual = asteroidPrefab.GetComponentInChildren<SpriteRenderer>();
-        asteroidHalfWidth = visual.bounds.extents.x;
-        asteroidHalfHeight = visual.bounds.extents.y;
     }
 
     private void Update()
@@ -57,8 +51,8 @@ public class AsteroidSpawner : MonoBehaviour
             return;
         }
 
-        float positionX = GetRandomScreenPositionX(asteroidHalfWidth);
-        float positionY = mainCamera.transform.position.y + mainCamera.orthographicSize + asteroidHalfHeight;
+        float positionX = GetRandomScreenPositionX(newAsteroid.HalfWidth);
+        float positionY = mainCamera.transform.position.y + mainCamera.orthographicSize + newAsteroid.HalfHeight;
         Vector3 newAsteroidPosition = new Vector3(positionX, positionY, 0.0f);
 
         newAsteroid.transform.position = newAsteroidPosition;
