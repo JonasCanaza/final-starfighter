@@ -340,6 +340,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1060861591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1060861592}
+  m_Layer: 0
+  m_Name: Asteroid Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1060861592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060861591}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5753865, y: -2.8224869, z: -0.022489695}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1371138878
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,8 +431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 943c5a11b720e8d48bcb6d6341db6290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 2136940543319954424, guid: 03308e373174cfe4b9d6ccaffd57e6e5, type: 3}
+  asteroidPoolSize: 20
   spawnInterval: 1
+  asteroidPrefab: {fileID: 2136940543319954424, guid: 03308e373174cfe4b9d6ccaffd57e6e5, type: 3}
+  asteroidContainer: {fileID: 1060861592}
 --- !u!4 &2010318314
 Transform:
   m_ObjectHideFlags: 0
@@ -485,5 +518,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 974782923239746285}
-  - {fileID: 1371138879}
   - {fileID: 2010318314}
+  - {fileID: 1371138879}
+  - {fileID: 1060861592}

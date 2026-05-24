@@ -31,7 +31,6 @@ public class BulletController : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
         {
-            Destroy(collision.gameObject);
             Deactivate();
         }
     }

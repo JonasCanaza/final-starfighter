@@ -19,19 +19,33 @@ public class AsteroidController : MonoBehaviour
         visual = GetComponentInChildren<SpriteRenderer>();
     }
 
-    private void Start()
-    {
-        currentSpeed = Random.Range(minSpeed, maxSpeed);
-    }
-
     private void Update()
     {
         transform.position -= Vector3.up * (currentSpeed * Time.deltaTime);
 
         if (IsAsteroidOffScreen())
         {
-            Destroy(gameObject);
+            Deactivate();
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Bullet"))
+        {
+            Deactivate();
+        }
+    }
+
+    public void Activate()
+    {
+        currentSpeed = Random.Range(minSpeed, maxSpeed);
+        gameObject.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 
     private bool IsAsteroidOffScreen()
