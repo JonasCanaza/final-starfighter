@@ -10,20 +10,16 @@ public class AsteroidController : Entity
     [SerializeField] private float maxSpeed = 5.0f;
     private float currentSpeed;
 
-    private Camera mainCamera;
-
     protected override void Awake()
     {
         base.Awake();
-
-        mainCamera = Camera.main;
     }
 
     private void Update()
     {
         transform.position -= Vector3.up * (currentSpeed * Time.deltaTime);
 
-        if (IsAsteroidOffScreen())
+        if (MainCamera.IsBelowBottomEdge(transform.position.y, HalfHeight))
         {
             Deactivate();
         }
@@ -42,12 +38,5 @@ public class AsteroidController : Entity
         currentSpeed = Random.Range(minSpeed, maxSpeed);
 
         base.Activate();
-    }
-
-    private bool IsAsteroidOffScreen()
-    {
-        float bottomScreenEdge = mainCamera.transform.position.y - mainCamera.orthographicSize - HalfHeight;
-
-        return transform.position.y < bottomScreenEdge;
     }
 }

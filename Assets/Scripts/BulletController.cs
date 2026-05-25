@@ -8,20 +8,11 @@ public class BulletController : Entity
     [Header("Movement Setting")]
     [SerializeField] private float speed = 15.0f;
 
-    private Camera mainCamera;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        mainCamera = Camera.main;
-    }
-
     private void Update()
     {
         transform.position += Vector3.up * (speed * Time.deltaTime);
 
-        if (IsBulletOffScreen())
+        if (MainCamera.IsAboveTopEdge(transform.position.y, HalfHeight))
         {
             Deactivate();
         }
@@ -33,12 +24,5 @@ public class BulletController : Entity
         {
             Deactivate();
         }
-    }
-
-    private bool IsBulletOffScreen()
-    {
-        float topScreenEdge = mainCamera.transform.position.y + mainCamera.orthographicSize + HalfHeight;
-
-        return transform.position.y > topScreenEdge;
     }
 }

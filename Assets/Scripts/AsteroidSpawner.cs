@@ -52,7 +52,7 @@ public class AsteroidSpawner : MonoBehaviour
         }
 
         float positionX = GetRandomScreenPositionX(newAsteroid.HalfWidth);
-        float positionY = mainCamera.transform.position.y + mainCamera.orthographicSize + newAsteroid.HalfHeight;
+        float positionY = mainCamera.GetTopEdge() + newAsteroid.HalfHeight;
         Vector3 newAsteroidPosition = new Vector3(positionX, positionY, 0.0f);
 
         newAsteroid.transform.position = newAsteroidPosition;
@@ -61,11 +61,8 @@ public class AsteroidSpawner : MonoBehaviour
 
     private float GetRandomScreenPositionX(float asteroidHalfWidth)
     {
-        float screenHeight = mainCamera.orthographicSize * 2.0f;
-        float screenWidth = screenHeight * mainCamera.aspect;
-
-        float left = mainCamera.transform.position.x - (screenWidth / 2.0f) + asteroidHalfWidth;
-        float right = mainCamera.transform.position.x + (screenWidth / 2.0f) - asteroidHalfWidth;
+        float left = mainCamera.GetLeftEdge() + asteroidHalfWidth;
+        float right = mainCamera.GetRightEdge() - asteroidHalfWidth;
 
         return Random.Range(left, right);
     }

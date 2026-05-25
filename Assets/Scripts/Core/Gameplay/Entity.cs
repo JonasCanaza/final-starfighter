@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     protected SpriteRenderer Visual { get; private set; }
+    protected Camera MainCamera { get; private set; }
 
     public float HalfWidth
     {
@@ -23,6 +24,7 @@ public abstract class Entity : MonoBehaviour
     protected virtual void Awake()
     {
         Visual = GetComponentInChildren<SpriteRenderer>();
+        MainCamera = Camera.main;
     }
 
     public virtual void Activate()

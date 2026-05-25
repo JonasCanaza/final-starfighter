@@ -19,13 +19,9 @@ public class PlayerController : Entity
     private BulletController[] bulletPool;
     private float lastFireTime;
 
-    private Camera mainCamera;
-
     protected override void Awake()
     {
         base.Awake();
-
-        mainCamera = Camera.main;
 
         InitBullets();
     }
@@ -73,27 +69,11 @@ public class PlayerController : Entity
         Vector3 newPosition = transform.position;
         newPosition.x += moveInput * speed * Time.deltaTime;
 
-        float leftLimit = GetLeftScreenLimit();
-        float rightLimit = GetRightScreenLimit();
+        float leftLimit = MainCamera.GetLeftEdge() + HalfWidth;
+        float rightLimit = MainCamera.GetRightEdge() - HalfWidth;
 
         newPosition.x = Mathf.Clamp(newPosition.x, leftLimit, rightLimit);
         transform.position = newPosition;
-    }
-
-    private float GetLeftScreenLimit()
-    {
-        float screenHeight = mainCamera.orthographicSize * 2.0f;
-        float screenWidth = screenHeight * mainCamera.aspect;
-
-        return mainCamera.transform.position.x - (screenWidth / 2.0f) + HalfWidth;
-    }
-
-    private float GetRightScreenLimit()
-    {
-        float screenHeight = mainCamera.orthographicSize * 2.0f;
-        float screenWidth = screenHeight * mainCamera.aspect;
-
-        return mainCamera.transform.position.x + (screenWidth / 2.0f) - HalfWidth;
     }
 
     private bool CanFire()
