@@ -16,14 +16,14 @@ public class PlayerController : Entity
     [SerializeField] private BulletController bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform bulletContainer;
-    private BulletController[] bulletPool;
+    private ObjectPool<BulletController> bulletPool;
     private float lastFireTime;
 
     protected override void Awake()
     {
         base.Awake();
 
-        InitBullets();
+        bulletPool = new ObjectPool<BulletController>(bulletPrefab, bulletPoolSize, bulletContainer);
     }
 
     private void Update()
@@ -37,18 +37,6 @@ public class PlayerController : Entity
         if (collision.gameObject.layer == LayerMask.NameToLayer("Asteroid"))
         {
             SceneManager.LoadScene("Gameplay");
-        }
-    }
-
-    private void InitBullets()
-    {
-        bulletPool = new BulletController[bulletPoolSize];
-
-        for (int i = 0; i < bulletPoolSize; i++)
-        {
-            BulletController newBullet = Instantiate(bulletPrefab, bulletContainer);
-            newBullet.Deactivate();
-            bulletPool[i] = newBullet;
         }
     }
 
@@ -83,7 +71,7 @@ public class PlayerController : Entity
 
     private void Shoot()
     {
-        BulletController newBullet = GetAvailableBullet();
+        BulletController newBullet = bulletPool.GetAvailable();
 
         if (!newBullet)
         {
@@ -94,18 +82,5 @@ public class PlayerController : Entity
         newBullet.Activate();
 
         lastFireTime = Time.time;
-    }
-
-    private BulletController GetAvailableBullet()
-    {
-        for (int i = 0; i < bulletPoolSize; i++)
-        {
-            if (!bulletPool[i].gameObject.activeInHierarchy)
-            {
-                return bulletPool[i];
-            }
-        }
-
-        return null;
     }
 }

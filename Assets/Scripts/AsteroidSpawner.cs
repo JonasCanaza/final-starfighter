@@ -7,14 +7,14 @@ public class AsteroidSpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 1.0f;
     [SerializeField] private AsteroidController asteroidPrefab;
     [SerializeField] private Transform asteroidContainer;
-    private AsteroidController[] asteroidPool;
+    private ObjectPool<AsteroidController> asteroidPool;
     private float timer = 0.0f;
 
     private Camera mainCamera;
 
     private void Awake()
     {
-        InitAsteroids();
+        asteroidPool = new ObjectPool<AsteroidController>(asteroidPrefab, asteroidPoolSize, asteroidContainer);
 
         mainCamera = Camera.main;
     }
@@ -30,21 +30,9 @@ public class AsteroidSpawner : MonoBehaviour
         }
     }
 
-    private void InitAsteroids()
-    {
-        asteroidPool = new AsteroidController[asteroidPoolSize];
-
-        for (int i = 0; i < asteroidPoolSize; i++)
-        {
-            AsteroidController newAsteroid = Instantiate(asteroidPrefab, asteroidContainer);
-            newAsteroid.Deactivate();
-            asteroidPool[i] = newAsteroid;
-        }
-    }
-
     private void SpawnAsteroid()
     {
-        AsteroidController newAsteroid = GetAvailableAsteroid();
+        AsteroidController newAsteroid = asteroidPool.GetAvailable();
 
         if (!newAsteroid)
         {
@@ -65,18 +53,5 @@ public class AsteroidSpawner : MonoBehaviour
         float right = mainCamera.GetRightEdge() - asteroidHalfWidth;
 
         return Random.Range(left, right);
-    }
-
-    private AsteroidController GetAvailableAsteroid()
-    {
-        for (int i = 0; i < asteroidPoolSize; i++)
-        {
-            if (!asteroidPool[i].gameObject.activeInHierarchy)
-            {
-                return asteroidPool[i];
-            }
-        }
-
-        return null;
     }
 }
