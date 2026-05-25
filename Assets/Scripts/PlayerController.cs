@@ -64,10 +64,7 @@ public class PlayerController : Entity
         transform.position = newPosition;
     }
 
-    private bool CanFire()
-    {
-        return Time.time >= lastFireTime + fireCooldown;
-    }
+    private bool CanFire() => Time.time >= lastFireTime + fireCooldown;
 
     private void Shoot()
     {

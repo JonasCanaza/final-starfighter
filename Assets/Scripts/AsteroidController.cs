@@ -10,11 +10,6 @@ public class AsteroidController : Entity
     [SerializeField] private float maxSpeed = 5.0f;
     private float currentSpeed;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     private void Update()
     {
         transform.position -= Vector3.up * (currentSpeed * Time.deltaTime);

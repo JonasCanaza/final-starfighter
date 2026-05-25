@@ -5,21 +5,8 @@ public abstract class Entity : MonoBehaviour
     protected SpriteRenderer Visual { get; private set; }
     protected Camera MainCamera { get; private set; }
 
-    public float HalfWidth
-    {
-        get
-        {
-            return Visual.bounds.extents.x;
-        }
-    }
-
-    public float HalfHeight
-    {
-        get
-        {
-            return Visual.bounds.extents.y;
-        }
-    }
+    public float HalfWidth => Visual.bounds.extents.x;
+    public float HalfHeight => Visual.bounds.extents.y;
 
     protected virtual void Awake()
     {
@@ -27,13 +14,7 @@ public abstract class Entity : MonoBehaviour
         MainCamera = Camera.main;
     }
 
-    public virtual void Activate()
-    {
-        gameObject.SetActive(true);
-    }
+    public virtual void Activate() => gameObject.SetActive(true);
 
-    public virtual void Deactivate()
-    {
-        gameObject.SetActive(false);
-    }
+    public virtual void Deactivate() => gameObject.SetActive(false);
 }
