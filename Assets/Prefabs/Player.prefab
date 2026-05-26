@@ -71,7 +71,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.75, y: 1.5}
+  m_Size: {x: 1, y: 1.75}
   m_Direction: 0
 --- !u!50 &4947485434245947687
 Rigidbody2D:
@@ -118,7 +118,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1492766579070078295, guid: a09155a8c02428044a4ff6b79de4f455, type: 3}
   firePoint: {fileID: 2113624558776337850}
   bulletContainer: {fileID: 0}
-  shotClip: {fileID: 8300000, guid: 2d32389c525f62b4b9a9c0e6bcf4a715, type: 3}
+  shotClips:
+  - {fileID: 8300000, guid: 2d32389c525f62b4b9a9c0e6bcf4a715, type: 3}
+  - {fileID: 8300000, guid: 6f044aa7a54c6114189853743d9b3181, type: 3}
 --- !u!1 &5382775959515391043
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,8 +147,8 @@ Transform:
   m_GameObject: {fileID: 5382775959515391043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.03757144}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 957739711280711031}
@@ -195,8 +197,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 0.6674955, b: 0, a: 1}
+  m_Sprite: {fileID: 256853142, guid: 2f8f5ce4227fe614b81c1b30abdb929e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

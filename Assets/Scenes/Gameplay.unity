@@ -809,22 +809,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4595374257380040354, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4595374257380040354, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
+      propertyPath: m_Size.y
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4986936852303589276, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
       propertyPath: bulletContainer
       value: 
       objectReference: {fileID: 1371138879}
-    - target: {fileID: 4986936852303589276, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
-      propertyPath: shotClips.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4986936852303589276, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
-      propertyPath: 'shotClips.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 2d32389c525f62b4b9a9c0e6bcf4a715, type: 3}
-    - target: {fileID: 4986936852303589276, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
-      propertyPath: 'shotClips.Array.data[1]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 6f044aa7a54c6114189853743d9b3181, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
