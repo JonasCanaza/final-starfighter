@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  impactClip: {fileID: 8300000, guid: bcb4543fc21aa6a4aacbabb1b2787461, type: 3}
 --- !u!1 &2195830574103327507
 GameObject:
   m_ObjectHideFlags: 0
