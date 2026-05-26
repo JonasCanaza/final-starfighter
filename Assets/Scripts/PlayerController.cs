@@ -19,6 +19,9 @@ public class PlayerController : Entity
     private ObjectPool<BulletController> bulletPool;
     private float lastFireTime;
 
+    [Header("Clip References")]
+    [SerializeField] private AudioClip shotClip;
+
     protected override void Awake()
     {
         base.Awake();
@@ -75,6 +78,7 @@ public class PlayerController : Entity
             return;
         }
 
+        AudioManager.Instance.PlaySFX(shotClip);
         newBullet.transform.position = firePoint.position;
         newBullet.Activate();
 

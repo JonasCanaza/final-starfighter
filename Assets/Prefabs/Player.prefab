@@ -113,12 +113,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  visual: {fileID: 5385691723178829950}
   bulletPoolSize: 10
   fireCooldown: 0.1
   bulletPrefab: {fileID: 1492766579070078295, guid: a09155a8c02428044a4ff6b79de4f455, type: 3}
   firePoint: {fileID: 2113624558776337850}
   bulletContainer: {fileID: 0}
+  shotClip: {fileID: 8300000, guid: 2d32389c525f62b4b9a9c0e6bcf4a715, type: 3}
 --- !u!1 &5382775959515391043
 GameObject:
   m_ObjectHideFlags: 0
