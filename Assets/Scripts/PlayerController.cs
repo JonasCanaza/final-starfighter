@@ -19,8 +19,9 @@ public class PlayerController : Entity
     private ObjectPool<BulletController> bulletPool;
     private float lastFireTime;
 
-    [Header("Clip References")]
-    [SerializeField] private AudioClip shotClip;
+    [Header("Clips References")]
+    [SerializeField] private AudioClip[] shotClips;
+    private int lastShotClipIndex = -1;
 
     protected override void Awake()
     {
@@ -78,10 +79,36 @@ public class PlayerController : Entity
             return;
         }
 
-        AudioManager.Instance.PlaySFX(shotClip);
+        AudioClip shotClip = GetShotClip();
+
+        if (shotClip)
+        {
+            AudioManager.Instance.PlaySFX(shotClip);
+        }
+
         newBullet.transform.position = firePoint.position;
         newBullet.Activate();
 
         lastFireTime = Time.time;
+    }
+
+    private AudioClip GetShotClip()
+    {
+        if (shotClips.Length == 0)
+        {
+            return null;
+        }
+
+        int randomClipIndex;
+
+        do
+        {
+            randomClipIndex = Random.Range(0, shotClips.Length);
+        }
+        while (randomClipIndex == lastShotClipIndex && shotClips.Length > 1);
+
+        lastShotClipIndex = randomClipIndex;
+
+        return shotClips[randomClipIndex];
     }
 }
