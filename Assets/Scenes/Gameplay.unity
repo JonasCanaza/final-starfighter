@@ -809,14 +809,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4595374257380040354, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4595374257380040354, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
-      propertyPath: m_Size.y
-      value: 1.75
-      objectReference: {fileID: 0}
     - target: {fileID: 4986936852303589276, guid: 67c6a57b1eb94f941a1ec34ff7b8693d, type: 3}
       propertyPath: bulletContainer
       value: 
