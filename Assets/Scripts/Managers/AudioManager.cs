@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     [SerializeField] private AudioSource sfxSource;
 
     [Header("Clips Settings")]
+    [SerializeField] private AudioClip mainMenuMusic;
     [SerializeField] private AudioClip gameplayMusic;
 
     protected override void Awake()
@@ -75,6 +76,18 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        PlayMusic(gameplayMusic);
+        switch (scene.name)
+        {
+            case SceneNames.MainMenu:
+
+                PlayMusic(mainMenuMusic);
+
+                break;
+            case SceneNames.Gameplay:
+
+                PlayMusic(gameplayMusic);
+
+                break;
+        }
     }
 }

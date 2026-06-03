@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 2852946913210364938}
   sfxSource: {fileID: 6121532674965519610}
+  mainMenuMusic: {fileID: 8300000, guid: 65974f4ac39e2dd4b82452d23527d0b5, type: 3}
   gameplayMusic: {fileID: 8300000, guid: 71c5888b8abe20743bc28406ab02f322, type: 3}
 --- !u!1 &5535712038806055807
 GameObject:
