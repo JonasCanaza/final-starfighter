@@ -32,7 +32,12 @@ public class PausePanelController : UIPanel
 
     private void HandleExitClicked()
     {
-        
+        EventBus.Publish(new SceneLoadRequestedEvent 
+        { 
+            SceneName = SceneNames.MainMenu 
+        });
+
+        EventBus.Publish(new PauseRequestedEvent());
     }
 
     private void OnGamePaused(GamePausedEvent gamePausedEvent)

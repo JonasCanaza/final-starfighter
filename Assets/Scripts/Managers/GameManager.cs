@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
@@ -18,9 +19,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         currentGameState = GameState.Playing;
     }
 
-    private void OnEnable() => EventBus.Subscribe<PauseRequestedEvent>(OnPauseRequested);
+    private void OnEnable()
+    {
+        EventBus.Subscribe<PauseRequestedEvent>(OnPauseRequested);
+        EventBus.Subscribe<SceneLoadRequestedEvent>(OnSceneLoadRequested);
+    }
 
-    private void OnDisable() => EventBus.Unsubscribe<PauseRequestedEvent>(OnPauseRequested);
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe<PauseRequestedEvent>(OnPauseRequested);
+        EventBus.Unsubscribe<SceneLoadRequestedEvent>(OnSceneLoadRequested);
+    }
 
     private void OnPauseRequested(PauseRequestedEvent pauseRequestedEvent)
     {
@@ -46,4 +55,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             });
         }
     }
+
+    private void OnSceneLoadRequested(SceneLoadRequestedEvent sceneLoadRequestedEvent) => SceneManager.LoadScene(sceneLoadRequestedEvent.SceneName);
 }
