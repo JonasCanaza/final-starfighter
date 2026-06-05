@@ -15,6 +15,10 @@ public class PausePanelController : UIPanel
         exitButton.onClick.AddListener(HandleExitClicked);
     }
 
+    private void OnEnable() => EventBus.Subscribe<GamePausedEvent>(OnGamePaused);
+
+    private void OnDisable() => EventBus.Unsubscribe<GamePausedEvent>(OnGamePaused);
+
     private void OnDestroy()
     {
         resumeButton.onClick.RemoveListener(HandleResumeClicked);
@@ -23,11 +27,23 @@ public class PausePanelController : UIPanel
 
     private void HandleResumeClicked()
     {
-        
+        EventBus.Publish(new PauseRequestedEvent());
     }
 
     private void HandleExitClicked()
     {
         
+    }
+
+    private void OnGamePaused(GamePausedEvent gamePausedEvent)
+    {
+        if (gamePausedEvent.IsPaused)
+        {
+            Show();
+        }
+        else
+        {
+            Hide();
+        }
     }
 }

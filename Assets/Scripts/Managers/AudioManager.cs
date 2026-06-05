@@ -20,6 +20,10 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void OnEnable() => EventBus.Subscribe<GamePausedEvent>(OnGamePuased);
+
+    private void OnDisable() => EventBus.Unsubscribe<GamePausedEvent>(OnGamePuased);
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -72,6 +76,18 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
     public void PlaySFX(AudioClip clip)
     {
         sfxSource.PlayOneShot(clip);
+    }
+
+    private void OnGamePuased(GamePausedEvent gamePausedEvent)
+    {
+        if (gamePausedEvent.IsPaused)
+        {
+            PauseMusic();
+        }
+        else
+        {
+            ResumeMusic();
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

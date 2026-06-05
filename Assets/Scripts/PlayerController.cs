@@ -9,6 +9,7 @@ public class PlayerController : Entity
     [Header("Movement Setting")]
     [SerializeField] private float speed = 15.0f;
     private float moveInput;
+    private bool canPlay = true;
 
     [Header("Shooting Settings")]
     [SerializeField] private int bulletPoolSize = 10;
@@ -30,10 +31,19 @@ public class PlayerController : Entity
         bulletPool = new ObjectPool<BulletController>(bulletPrefab, bulletPoolSize, bulletContainer);
     }
 
+    private void OnEnable() => EventBus.Subscribe<GamePausedEvent>(OnGamePaused);
+
+    private void OnDisable() => EventBus.Unsubscribe<GamePausedEvent>(OnGamePaused);
+
     private void Update()
     {   
-        ReadInput();
-        Movement();
+        ReadPauseInput();
+
+        if (canPlay)
+        {
+            ReadGameplayInput();
+            Movement();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +54,15 @@ public class PlayerController : Entity
         }
     }
 
-    private void ReadInput()
+    private void ReadPauseInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EventBus.Publish(new PauseRequestedEvent());
+        }
+    }
+
+    private void ReadGameplayInput()
     {
         // MOVEMENT
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -111,4 +129,6 @@ public class PlayerController : Entity
 
         return shotClips[randomClipIndex];
     }
+
+    private void OnGamePaused(GamePausedEvent gamePausedEvent) => canPlay = !gamePausedEvent.IsPaused;
 }
